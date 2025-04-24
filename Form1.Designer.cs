@@ -28,40 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            button1 = new Button();
+            dgvMeteo.CellContentClick += dgvMeteo_CellContentClick;
+
+            dgvMeteo = new DataGridView();
+            btnRefresh = new Button();
             lblCity = new Label();
             lblOrario = new Label();
             lblData = new Label();
             txtCity = new TextBox();
             txtOrario = new TextBox();
             txtData = new TextBox();
-            btnCerca = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            btnAggiungiPrenotazione = new Button();
+            groupBox1 = new GroupBox();
+            ((System.ComponentModel.ISupportInitialize)dgvMeteo).BeginInit();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
-            // dataGridView1
+            // dgvMeteo
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 221);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(603, 217);
-            dataGridView1.TabIndex = 0;
+            dgvMeteo.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMeteo.Location = new Point(12, 221);
+            dgvMeteo.Name = "dgvMeteo";
+            dgvMeteo.RowHeadersWidth = 51;
+            dgvMeteo.Size = new Size(767, 217);
+            dgvMeteo.TabIndex = 0;
             // 
-            // button1
+            // btnRefresh
             // 
-            button1.Location = new Point(621, 295);
-            button1.Name = "button1";
-            button1.Size = new Size(167, 29);
-            button1.TabIndex = 1;
-            button1.Text = "Refresh";
-            button1.UseVisualStyleBackColor = true;
+            btnRefresh.BackColor = Color.FromArgb(255, 255, 128);
+            btnRefresh.Location = new Point(340, 190);
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(167, 29);
+            btnRefresh.TabIndex = 1;
+            btnRefresh.Text = "Aggiorna i dati";
+            btnRefresh.UseVisualStyleBackColor = false;
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // lblCity
             // 
             lblCity.AutoSize = true;
-            lblCity.Location = new Point(154, 53);
+            lblCity.Location = new Point(30, 35);
             lblCity.Name = "lblCity";
             lblCity.Size = new Size(43, 20);
             lblCity.TabIndex = 2;
@@ -70,7 +76,7 @@
             // lblOrario
             // 
             lblOrario.AutoSize = true;
-            lblOrario.Location = new Point(154, 97);
+            lblOrario.Location = new Point(30, 79);
             lblOrario.Name = "lblOrario";
             lblOrario.Size = new Size(54, 20);
             lblOrario.TabIndex = 3;
@@ -79,7 +85,7 @@
             // lblData
             // 
             lblData.AutoSize = true;
-            lblData.Location = new Point(154, 139);
+            lblData.Location = new Point(30, 121);
             lblData.Name = "lblData";
             lblData.Size = new Size(44, 20);
             lblData.TabIndex = 4;
@@ -87,67 +93,84 @@
             // 
             // txtCity
             // 
-            txtCity.Location = new Point(235, 53);
+            txtCity.Location = new Point(111, 35);
             txtCity.Name = "txtCity";
             txtCity.Size = new Size(125, 27);
             txtCity.TabIndex = 5;
             // 
             // txtOrario
             // 
-            txtOrario.Location = new Point(235, 97);
+            txtOrario.Location = new Point(111, 79);
             txtOrario.Name = "txtOrario";
             txtOrario.Size = new Size(125, 27);
             txtOrario.TabIndex = 6;
             // 
             // txtData
             // 
-            txtData.Location = new Point(235, 139);
+            txtData.Location = new Point(111, 121);
             txtData.Name = "txtData";
             txtData.Size = new Size(125, 27);
             txtData.TabIndex = 7;
             // 
-            // btnCerca
+            // btnAggiungiPrenotazione
             // 
-            btnCerca.AccessibleRole = AccessibleRole.None;
-            btnCerca.Font = new Font("Segoe UI Emoji", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCerca.Location = new Point(440, 74);
-            btnCerca.Name = "btnCerca";
-            btnCerca.Size = new Size(102, 85);
-            btnCerca.TabIndex = 8;
-            btnCerca.Text = "🔎";
-            btnCerca.UseVisualStyleBackColor = true;
+            btnAggiungiPrenotazione.AccessibleRole = AccessibleRole.None;
+            btnAggiungiPrenotazione.BackColor = Color.FromArgb(128, 128, 255);
+            btnAggiungiPrenotazione.Font = new Font("Segoe UI Emoji", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAggiungiPrenotazione.Location = new Point(295, 50);
+            btnAggiungiPrenotazione.Name = "btnAggiungiPrenotazione";
+            btnAggiungiPrenotazione.Size = new Size(213, 85);
+            btnAggiungiPrenotazione.TabIndex = 8;
+            btnAggiungiPrenotazione.Text = "Inserisci una prenotazione di temperatura";
+            btnAggiungiPrenotazione.UseVisualStyleBackColor = false;
+            btnAggiungiPrenotazione.Click += btnAggiungiPrenotazione_Click;
+            // 
+            // groupBox1
+            // 
+            groupBox1.BackColor = Color.FromArgb(192, 192, 255);
+            groupBox1.Controls.Add(txtOrario);
+            groupBox1.Controls.Add(btnAggiungiPrenotazione);
+            groupBox1.Controls.Add(lblCity);
+            groupBox1.Controls.Add(txtData);
+            groupBox1.Controls.Add(lblOrario);
+            groupBox1.Controls.Add(lblData);
+            groupBox1.Controls.Add(txtCity);
+            groupBox1.Location = new Point(148, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(532, 172);
+            groupBox1.TabIndex = 9;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Area di inserimento";
+            groupBox1.Enter += groupBox1_Enter;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(btnCerca);
-            Controls.Add(txtData);
-            Controls.Add(txtOrario);
-            Controls.Add(txtCity);
-            Controls.Add(lblData);
-            Controls.Add(lblOrario);
-            Controls.Add(lblCity);
-            Controls.Add(button1);
-            Controls.Add(dataGridView1);
+            Controls.Add(groupBox1);
+            Controls.Add(btnRefresh);
+            Controls.Add(dgvMeteo);
             Name = "Form1";
-            Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Text = "Prenota forecast  temperatura";
+            Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvMeteo).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
-        private Button button1;
+        private DataGridView dgvMeteo;
+        private Button btnRefresh;
         private Label lblCity;
         private Label lblOrario;
         private Label lblData;
         private TextBox txtCity;
         private TextBox txtOrario;
         private TextBox txtData;
-        private Button btnCerca;
+        private Button btnAggiungiPrenotazione;
+        private GroupBox groupBox1;
     }
 }
